@@ -12,6 +12,7 @@ var mut sync.Mutex = sync.Mutex{}
 type Value struct {
 	StreamData    *Stream
 	SortedSetData *SortedSet
+	ListData      []string
 	Data          string
 	ExpiresAt     *time.Time
 }

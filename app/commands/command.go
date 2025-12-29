@@ -8,6 +8,7 @@ import (
 const (
 	errWrongNumberOfArgs    = "wrong number of arguments"
 	errSyntax               = "syntax error"
+	errWrongType            = "WRONGTYPE Operation against a key holding the wrong kind of value"
 	invalidStreamID         = "ERR Invalid stream ID specified as stream command argument"
 	idGreaterThanTopElement = "ERR The ID specified in XADD is equal or smaller than the target stream top item"
 	errSubscribedMode       = "ERR only (P|S)SUBSCRIBE / (P|S)UNSUBSCRIBE / PING / QUIT / RESET are allowed in this context"
@@ -85,6 +86,20 @@ func New(label string, params []string) Executor {
 		return &ZScoreCommand{label: label, args: params}
 	case "zrem":
 		return &ZRemCommand{label: label, args: params, IsMutation: true}
+	case "lpush":
+		return &LPushCommand{label: label, args: params, IsMutation: true}
+	case "rpush":
+		return &RPushCommand{label: label, args: params, IsMutation: true}
+	case "lpop":
+		return &LPopCommand{label: label, args: params, IsMutation: true}
+	case "rpop":
+		return &RPopCommand{label: label, args: params, IsMutation: true}
+	case "llen":
+		return &LLenCommand{label: label, args: params}
+	case "lrange":
+		return &LRangeCommand{label: label, args: params}
+	case "blpop":
+		return &BLPopCommand{label: label, args: params, IsMutation: true}
 	}
 	return &NotImplementedCommand{}
 }
