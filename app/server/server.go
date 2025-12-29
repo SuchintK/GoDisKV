@@ -6,10 +6,10 @@ import (
 	"log"
 	"net"
 
-	command "github.com/codecrafters-io/redis-starter-go/app/commands"
-	"github.com/codecrafters-io/redis-starter-go/app/resp"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/parser"
+	command "github.com/SuchintK/GoDisKV/app/commands"
+	"github.com/SuchintK/GoDisKV/app/resp"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
+	"github.com/SuchintK/GoDisKV/app/resp/parser"
 )
 
 type Server struct {

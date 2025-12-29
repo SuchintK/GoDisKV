@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/codecrafters-io/redis-starter-go/app/server"
+	"github.com/SuchintK/GoDisKV/app/server"
 )
 
 var portNumFlag = flag.Int("port", 6379, "the port at which the server will be listening to")

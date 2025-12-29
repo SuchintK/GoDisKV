@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	command "github.com/codecrafters-io/redis-starter-go/app/commands"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
-	"github.com/codecrafters-io/redis-starter-go/app/store"
+	command "github.com/SuchintK/GoDisKV/app/commands"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
+	"github.com/SuchintK/GoDisKV/app/store"
 )
 
 func setupBLPopTestClient() *client.Client {

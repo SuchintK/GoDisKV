@@ -3,8 +3,8 @@ package pubsub
 import (
 	"sync"
 
-	"github.com/codecrafters-io/redis-starter-go/app/resp"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
+	"github.com/SuchintK/GoDisKV/app/resp"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
 )
 
 // Manager handles Pub/Sub subscriptions

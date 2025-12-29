@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/codecrafters-io/redis-starter-go/app/resp"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
-	"github.com/codecrafters-io/redis-starter-go/app/store"
+	"github.com/SuchintK/GoDisKV/app/resp"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
+	"github.com/SuchintK/GoDisKV/app/store"
 )
 
 type PSYNCCommand Command

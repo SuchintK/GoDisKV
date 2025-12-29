@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	command "github.com/codecrafters-io/redis-starter-go/app/commands"
-	"github.com/codecrafters-io/redis-starter-go/app/store"
+	command "github.com/SuchintK/GoDisKV/app/commands"
+	"github.com/SuchintK/GoDisKV/app/store"
 )
 
 func TestXReadCommand(t *testing.T) {

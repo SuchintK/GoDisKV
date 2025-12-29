@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	parser "github.com/codecrafters-io/redis-starter-go/app/resp/parser"
+	parser "github.com/SuchintK/GoDisKV/app/resp/parser"
 )
 
 type TestInput struct {

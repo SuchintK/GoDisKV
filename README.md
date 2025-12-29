@@ -1,6 +1,6 @@
-# Redis Key-Value Store
+# GoDis Key-Value Store
 
-A Redis-compatible key-value store implementation in Go, supporting multiple data structures and advanced features.
+A key-value store implementation in Go, supporting multiple data structures and advanced features.
 
 ## Quick Start
 

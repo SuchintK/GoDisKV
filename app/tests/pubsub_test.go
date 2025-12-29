@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	command "github.com/codecrafters-io/redis-starter-go/app/commands"
-	"github.com/codecrafters-io/redis-starter-go/app/pubsub"
-	"github.com/codecrafters-io/redis-starter-go/app/resp"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
+	command "github.com/SuchintK/GoDisKV/app/commands"
+	"github.com/SuchintK/GoDisKV/app/pubsub"
+	"github.com/SuchintK/GoDisKV/app/resp"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
 )
 
 // mockConn implements net.Conn for testing

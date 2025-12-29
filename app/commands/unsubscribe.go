@@ -1,9 +1,9 @@
 package command
 
 import (
-	"github.com/codecrafters-io/redis-starter-go/app/pubsub"
-	"github.com/codecrafters-io/redis-starter-go/app/resp"
-	"github.com/codecrafters-io/redis-starter-go/app/resp/client"
+	"github.com/SuchintK/GoDisKV/app/pubsub"
+	"github.com/SuchintK/GoDisKV/app/resp"
+	"github.com/SuchintK/GoDisKV/app/resp/client"
 )
 
 type UnsubscribeCommand Command
