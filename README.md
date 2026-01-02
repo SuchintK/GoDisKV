@@ -172,6 +172,100 @@ ZREM leaderboard "player1"
 
 ---
 
+### Geospatial Operations
+
+Geospatial indexes store locations with latitude and longitude coordinates, enabling radius queries and distance calculations.
+
+#### GEOADD
+Add geospatial locations (longitude, latitude, member) to a key.
+```bash
+GEOADD locations 13.361389 38.115556 "Palermo"
+# Returns: 1
+
+GEOADD locations 15.087269 37.502669 "Catania" 12.5 37.8 "Agrigento"
+# Returns: 2
+```
+
+**Validation:**
+- Longitude: -180.0 to 180.0
+- Latitude: -85.05112878 to 85.05112878
+
+#### GEOPOS
+Get the coordinates (longitude, latitude) of members.
+```bash
+GEOPOS locations "Palermo" "Catania"
+# Returns: [[13.361389, 38.115556], [15.087269, 37.502669]]
+
+GEOPOS locations "NonExistent"
+# Returns: [nil]
+```
+
+#### GEODIST
+Calculate the distance between two members.
+```bash
+GEODIST locations "Palermo" "Catania"
+# Returns: "166274.1516" (meters by default)
+
+GEODIST locations "Palermo" "Catania" km
+# Returns: "166.2741516"
+
+GEODIST locations "Palermo" "Catania" mi
+# Returns: "103.3182"
+```
+
+**Supported units:**
+- `m` - meters (default)
+- `km` - kilometers
+- `mi` - miles
+- `ft` - feet
+
+#### GEORADIUS
+Query members within a radius from coordinates.
+```bash
+GEORADIUS locations 15.0 37.0 200 km
+# Returns: ["Palermo", "Catania"]
+
+GEORADIUS locations 15.0 37.0 100 km
+# Returns: ["Catania"]
+```
+
+**Optional flags:**
+```bash
+# Include distances
+GEORADIUS locations 15.0 37.0 200 km WITHDIST
+# Returns: [["Catania", "56.4413"], ["Palermo", "190.4424"]]
+
+# Include coordinates
+GEORADIUS locations 15.0 37.0 200 km WITHCOORD
+# Returns: [["Palermo", [13.361389, 38.115556]], ...]
+
+# Include geohash
+GEORADIUS locations 15.0 37.0 200 km WITHHASH
+# Returns: [["Palermo", 3479099956230698], ...]
+
+# Limit results
+GEORADIUS locations 15.0 37.0 200 km COUNT 1
+# Returns: ["Catania"]
+
+# Sort by distance
+GEORADIUS locations 15.0 37.0 200 km ASC
+# Returns: ["Catania", "Palermo"] (closest first)
+
+GEORADIUS locations 15.0 37.0 200 km DESC
+# Returns: ["Palermo", "Catania"] (farthest first)
+
+# Combine options
+GEORADIUS locations 15.0 37.0 200 km WITHDIST WITHCOORD ASC COUNT 2
+```
+
+**Implementation details:**
+- Uses 52-bit geohash encoding (26-bit latitude + 26-bit longitude)
+- Haversine formula for distance calculations
+- Earth radius: 6372797.560856 meters
+- Stored in sorted sets with geohash as score
+
+---
+
 ### Stream Operations
 
 Streams are append-only log data structures for event streaming.
@@ -282,6 +376,7 @@ PSYNC ? -1
 
 - **RESP Protocol**: Redis Serialization Protocol for client-server communication
 - **Skip List**: Efficient sorted set implementation with O(log n) operations
+- **Geospatial Index**: 52-bit geohash encoding with Haversine distance calculations
 - **Pub/Sub**: In-memory message broker with channel subscriptions
 - **Replication**: Asynchronous master-replica data synchronization
 - **Transactions**: ACID-compliant transaction support with command queuing

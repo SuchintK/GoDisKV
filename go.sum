@@ -1,2 +1,4 @@
+github.com/codecrafters-io/redis-geocoding-algorithm v0.0.0-20250825042249-0918076067b8 h1:3hJ+4n8fMTIPGPGlB7d0MAmrSAUIe6Xz9pf5skpUYGY=
+github.com/codecrafters-io/redis-geocoding-algorithm v0.0.0-20250825042249-0918076067b8/go.mod h1:YE2IeLswwKsZQWru5EohkOVXM2EDmpP2dc8xxsNKLok=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

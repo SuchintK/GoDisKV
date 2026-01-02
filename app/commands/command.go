@@ -100,6 +100,14 @@ func New(label string, params []string) Executor {
 		return &LRangeCommand{label: label, args: params}
 	case "blpop":
 		return &BLPopCommand{label: label, args: params, IsMutation: true}
+	case "geoadd":
+		return &GeoAddCommand{label: label, args: params, IsMutation: true}
+	case "geopos":
+		return &GeoPosCommand{label: label, args: params}
+	case "geodist":
+		return &GeoDistCommand{label: label, args: params}
+	case "georadius":
+		return &GeoRadiusCommand{label: label, args: params}
 	}
 	return &NotImplementedCommand{}
 }
