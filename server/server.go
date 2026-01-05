@@ -70,6 +70,7 @@ func (s *Server) handleClient(cli *client.Client) {
 			continue
 		}
 
+		var executor command.Executor = &command.NotImplementedCommand{}
 		// Check if we're in a transaction and need to queue the command
 		if cli.IsInTransaction() && decoded.Label != "exec" && decoded.Label != "discard" {
 			// Queue the command instead of executing it
@@ -77,10 +78,12 @@ func (s *Server) handleClient(cli *client.Client) {
 			response := resp.EncodeSimpleString("QUEUED")
 			cli.Write(response)
 			cli.Flush()
+			// Propagate queued command to replicas
+			s.propagate(decoded)
 		} else {
 			// Execute the command normally
-			cmd := command.New(decoded.Label, decoded.Args)
-			response := cmd.Execute(cli)
+			executor = command.New(decoded.Label, decoded.Args)
+			response := executor.Execute(cli)
 
 			if response != nil {
 				cli.Write(response)
@@ -93,9 +96,16 @@ func (s *Server) handleClient(cli *client.Client) {
 		if decoded.Label == "psync" {
 			s.subscribe(cli)
 		}
-		//TODO check if the command is mutable only "set" for now...
-		if decoded.Label == "set" || decoded.Label == "incr" {
+
+		// Propagate transaction control commands
+		if decoded.Label == "multi" || decoded.Label == "exec" || decoded.Label == "discard" {
 			s.propagate(decoded)
+		} else if !cli.IsInTransaction() {
+			// Propagate mutations to replicas (but not during transaction execution)
+			// Commands queued during transactions are already propagated when queued
+			if cmd, ok := executor.(interface{ IsMutation() bool }); ok && cmd.IsMutation() {
+				s.propagate(decoded)
+			}
 		}
 	}
 }
