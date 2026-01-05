@@ -1,6 +1,19 @@
 # GoDis Key-Value Store
 
-A key-value store implementation in Go, supporting multiple data structures and advanced features.
+A high-performance, Redis-compatible key-value store implementation in Go with support for multiple data structures, replication, pub/sub, and transactions.
+
+## ✨ Features at a Glance
+
+- **🗂️ Multiple Data Structures**: Strings, Lists, Sorted Sets, Streams, and Geospatial data
+- **📡 Pub/Sub Messaging**: Publish/subscribe pattern with channel-based messaging
+- **🔄 Master-Replica Replication**: Asynchronous data synchronization across replicas
+- **💾 Transaction Support**: ACID-compliant transactions with MULTI/EXEC/DISCARD
+- **⏱️ Expiration & TTL**: Key expiration with millisecond precision
+- **🌍 Geospatial Operations**: GEOADD, GEOPOS, GEODIST, GEORADIUS with geohash encoding
+- **📊 Stream Data**: Time-series data with XADD, XRANGE, XREAD
+- **🔒 Blocking Operations**: BLPOP with configurable timeout
+- **🐳 Docker Ready**: Multi-stage Docker builds with compose support
+- **⚡ High Performance**: Written in Go with goroutines and efficient data structures
 
 ## Quick Start
 
@@ -380,6 +393,60 @@ PSYNC ? -1
 - **Pub/Sub**: In-memory message broker with channel subscriptions
 - **Replication**: Asynchronous master-replica data synchronization
 - **Transactions**: ACID-compliant transaction support with command queuing
+
+---
+
+## Docker Deployment
+
+### Build and Run with Docker
+
+**Build the Docker image:**
+```bash
+docker build -t kv-store .
+```
+
+**Run a single instance:**
+```bash
+docker run -p 6379:6379 kv-store
+```
+
+**Run as a replica:**
+```bash
+docker run -p 6380:6380 kv-store --port 6380 --replicaof <master-host> 6379
+```
+
+### Docker Compose (Master + Replicas)
+
+**Start the full stack (1 master + 2 replicas):**
+```bash
+docker compose up --build
+```
+
+This will start:
+- Master on port **6379**
+- Replica 1 on port **6380**
+- Replica 2 on port **6381**
+
+**Connect to master:**
+```bash
+redis-cli -p 6379 ping
+```
+
+**Connect to replica:**
+```bash
+redis-cli -p 6380 ping
+```
+
+**Stop all containers:**
+```bash
+docker compose down
+```
+
+**View logs:**
+```bash
+docker compose logs -f kv-store-master
+docker compose logs -f kv-store-replica-1
+```
 
 ---
 

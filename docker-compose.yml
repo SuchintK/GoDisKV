@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Master instance
+  kv-store-master:
+    build: .
+    container_name: kv-store-master
+    ports:
+      - "6379:6379"
+    command: ["--port", "6379"]
+    networks:
+      - kv-network
+
+  # Replica instance 1
+  kv-store-replica-1:
+    build: .
+    container_name: kv-store-replica-1
+    ports:
+      - "6380:6380"
+    command: ["--port", "6380", "--replicaof", "kv-store-master", "6379"]
+    depends_on:
+      - kv-store-master
+    networks:
+      - kv-network
+
+  # Replica instance 2
+  kv-store-replica-2:
+    build: .
+    container_name: kv-store-replica-2
+    ports:
+      - "6381:6381"
+    command: ["--port", "6381", "--replicaof", "kv-store-master", "6379"]
+    depends_on:
+      - kv-store-master
+    networks:
+      - kv-network
+
+networks:
+  kv-network:
+    driver: bridge

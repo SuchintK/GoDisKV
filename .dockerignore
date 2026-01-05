@@ -1,0 +1,17 @@
+# Ignore test cache and build artifacts
+**/*.test
+*.out
+
+# Ignore vendor directory
+vendor/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
